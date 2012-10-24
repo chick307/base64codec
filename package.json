@@ -1,0 +1,27 @@
+{
+	"author": "chick307 <chick307@gmail.com>",
+	"name": "base64codec",
+	"description": "Base64 encoding/decoding library for JavaScript.",
+	"version": "0.0.0",
+	"main": "base64codec.js",
+	"scripts": {
+		"test": "node_modules/.bin/mocha"
+	},
+	"homepage": "https://github.com/chick307/base64codec",
+	"bugs": "https://github.com/chick307/base64codec/issues",
+	"repository": {
+		"type": "git",
+		"url": "git://github.com/chick307/base64codec.git"
+	},
+	"dependencies": {},
+	"devDependencies": {
+		"mocha": "~1.6.0"
+	},
+	"optionalDependencies": {},
+	"engines": {
+		"node": "*"
+	},
+	"jam": {
+		"dependencies": {}
+	}
+}

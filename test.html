@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<title>base64codec test</title>
+	<style>
+		body { margin: 16px; font-family: monospace; color: #444 }
+		h1 { margin: 20px 0; padding: 0 12px; line-height: 2 }
+		#stats { margin: 20px 10px; padding: 0 }
+		#stats > li { margin: 0 0.5em 0 0; display: inline-block;
+			vertical-align: middle; height: 40px; line-height: 40px }
+		#stats em { font-style: normal; font-size: small }
+		#stats a { text-decoration: none }
+		#stats a:hover { text-decoration: underline }
+		#report { margin: 0; padding: 0 }
+		.suite { display: block }
+		.suite > h1 { margin: 0; line-height: 1 }
+		.suite > h1 > a { font-size: large; font-weight: normal;
+			color: #444; text-decoration: none }
+		.suite > h1 > a:hover { text-decoration: underline }
+		.test > h2 { font-size: medium; font-weight: normal; cursor: default }
+		.test.pass > h2 { color: #0B4 }
+		.test.fail > h2 { color: #E00 }
+		.test pre.error { padding: 1em; overflow: auto; background: #FEE }
+		.test .duration { padding: 0 0.5em; color: #CCC; font-size: x-small }
+	</style>
+	<script>
+		// simulates environments that do not have `atob()`, `btoa()`, and/or
+		// TypedArray.
+		!!Object.defineProperties && void function() {
+			var hash = location.hash;
+			if (hash === '#legacy-a') {
+				Object.defineProperties(window, {
+					atob: {value: void 0},
+					btoa: {value: void 0}
+				});
+			} else if (hash === '#legacy-t') {
+				Object.defineProperties(window, {
+					ArrayBuffer: {value: void 0},
+					Uint8Array: {value: void 0}
+				});
+			} else if (hash === '#legacy-at') {
+				Object.defineProperties(window, {
+					atob: {value: void 0},
+					btoa: {value: void 0},
+					ArrayBuffer: {value: void 0},
+					Uint8Array: {value: void 0}
+				});
+			}
+		}();
+	</script>
+</head>
+<body>
+	<h1>base64codec test</h1>
+	<div id="mocha"></div>
+	<script src="base64codec.js"></script>
+	<script>
+		// a shim of 'assert' module.
+		var assert = (function() {
+			function assert(a, b) {
+				if (a)
+					return;
+				var error = new Error(b || 'true === false');
+				error.name = 'AssertionError';
+				throw error;
+			}
+
+			assert.strictEqual = function strictEqual(a, b) {
+				assert(a === b, a + ' === ' + b);
+			};
+
+			assert.deepEqual = function deepEqual(a, b) {
+				assert(_deepEqual(a, b), a + ' deepEqual ' + b);
+			};
+
+			function _deepEqual(a, b) {
+				if(typeof a !== 'object' || typeof b !== 'object')
+					return a === b;
+				var aKeys = Object.keys(a), bKeys = Object.keys(b);
+				if (aKeys.length !== bKeys.length)
+					return false;
+				return aKeys.every(function(key) {
+					return bKeys.indexOf(key) !== -1 &&
+						_deepEqual(a[key], b[key]);
+				});
+			}
+
+			return assert;
+		}());
+	</script>
+	<script src="node_modules/mocha/mocha.js"></script>
+	<script>mocha.setup('bdd');</script>
+	<script src="test.js"></script>
+	<script>mocha.run();</script>
+</body>
+</html>

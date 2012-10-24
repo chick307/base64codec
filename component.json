@@ -1,0 +1,6 @@
+{
+	"name": "base64codec",
+	"version": "0.0.0",
+	"main": "base64codec.js",
+	"dependencies": {}
+}
