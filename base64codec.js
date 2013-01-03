@@ -22,7 +22,11 @@ void function(global, callback) {
 }(this, function() {
 	var Buffer = (function() {
 		if (typeof require === 'function') {
-			var buffer = require('buffer');
+			var buffer;
+			try {
+				// this will fail in browser-side require.js environments
+				buffer = require('buffer');
+			} catch(requireJs) {}
 			if (buffer && buffer.Buffer)
 				return buffer.Buffer;
 		}
