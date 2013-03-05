@@ -5,46 +5,39 @@
  * http://opensource.org/licenses/mit-license
  */
 
+var assert;
+if (assert == null)
+	assert = require('assert');
+
+var base64codec;
+if (base64codec == null)
+	base64codec = require('base64codec');
+
 var hasTypedArray = typeof ArrayBuffer === 'function' &&
 		typeof Uint8Array === 'function';
 
 describe('base64codec', function() {
-	var assert, strictEqual, deepEqual;
-	var base64codec;
-
-	before(function() {
-		if (typeof require === 'function') {
-			assert = require('assert');
-			base64codec = require('.');
-		} else {
-			assert = global.assert;
-			base64codec = global.base64codec;
-		}
-		strictEqual = assert.strictEqual;
-		deepEqual = assert.deepEqual;
-	});
-
 	describe('encode', function() {
 		it('\\0', function() {
-			strictEqual(base64codec.encode('\0'), 'AA==');
+			assert.strictEqual(base64codec.encode('\0'), 'AA==');
 		});
 
 		it('\\0\\0', function() {
-			strictEqual(base64codec.encode('\0\0'), 'AAA=');
+			assert.strictEqual(base64codec.encode('\0\0'), 'AAA=');
 		});
 
 		it('\\0\\0\\0', function() {
-			strictEqual(base64codec.encode('\0\0\0'), 'AAAA');
+			assert.strictEqual(base64codec.encode('\0\0\0'), 'AAAA');
 		});
 
 		it('ABCDEFG', function() {
-			strictEqual(base64codec.encode('ABCDEFG'), 'QUJDREVGRw==');
+			assert.strictEqual(base64codec.encode('ABCDEFG'), 'QUJDREVGRw==');
 		});
 	});
 
 	describe('encodeUtf8', function() {
 		it('あいうえお', function() {
-			strictEqual(
+			assert.strictEqual(
 				base64codec.encodeUtf8('あいうえお'), '44GC44GE44GG44GI44GK');
 		});
 	});
@@ -62,36 +55,36 @@ describe('base64codec', function() {
 		});
 
 		it('あいうえお', function() {
-			strictEqual(
+			assert.strictEqual(
 				base64codec.encodeBuffer(aiueo), '44GC44GE44GG44GI44GK');
 		});
 	});
 
 	describe('decode', function() {
 		it('AA==', function() {
-			strictEqual(base64codec.decode('AA=='), '\0');
+			assert.strictEqual(base64codec.decode('AA=='), '\0');
 		});
 
 		it('AAA', function() {
-			strictEqual(base64codec.decode('AAA'), '\0\0');
+			assert.strictEqual(base64codec.decode('AAA'), '\0\0');
 		});
 
 		it('AAA=', function() {
-			strictEqual(base64codec.decode('AAA='), '\0\0');
+			assert.strictEqual(base64codec.decode('AAA='), '\0\0');
 		});
 
 		it('AAAA', function() {
-			strictEqual(base64codec.decode('AAAA'), '\0\0\0');
+			assert.strictEqual(base64codec.decode('AAAA'), '\0\0\0');
 		});
 
 		it('QUJDREVGRw==', function() {
-			strictEqual(base64codec.decode('QUJDREVGRw=='), 'ABCDEFG');
+			assert.strictEqual(base64codec.decode('QUJDREVGRw=='), 'ABCDEFG');
 		});
 	});
 
 	describe('decodeUtf8', function() {
 		it('44GC44GE44GG44GI44GK', function() {
-			strictEqual(
+			assert.strictEqual(
 				base64codec.decodeUtf8('44GC44GE44GG44GI44GK'), 'あいうえお');
 		});
 	});
@@ -104,10 +97,10 @@ describe('base64codec', function() {
 			var buffer = base64codec.decodeBuffer('44GC44GE44GG44GI44GK');
 			assert(buffer instanceof ArrayBuffer,
 				'The return value needs to be a ArrayBuffer.');
-			strictEqual(buffer.byteLength, 15);
+			assert.strictEqual(buffer.byteLength, 15);
 
 			var array = new Uint8Array(buffer);
-			deepEqual(array, new Uint8Array([
+			assert.deepEqual(array, new Uint8Array([
 				0xE3, 0x81, 0x82, 0xE3, 0x81, 0x84, 0xE3, 0x81,
 				0x86, 0xE3, 0x81, 0x88, 0xE3, 0x81, 0x8A]));
 		});

@@ -5,7 +5,7 @@
 	"version": "0.0.1",
 	"main": "base64codec.js",
 	"scripts": {
-		"test": "node_modules/.bin/mocha"
+		"test": "grunt test"
 	},
 	"homepage": "https://github.com/chick307/base64codec",
 	"bugs": "https://github.com/chick307/base64codec/issues",
@@ -15,7 +15,11 @@
 	},
 	"dependencies": {},
 	"devDependencies": {
-		"mocha": "~1.6.0"
+		"mocha": "1.8.x",
+		"grunt": "0.4.x",
+		"grunt-mocha": "0.2.x",
+		"grunt-simple-mocha": "0.3.x",
+		"grunt-contrib-watch": "0.3.x"
 	},
 	"optionalDependencies": {},
 	"engines": {
