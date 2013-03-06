@@ -43,7 +43,10 @@ require(['base64codec'], function(base64codec) {
 
 ### web browsers
 
-```javascript
-window.base64codec.encode('\0\0\0'); // -> 'AAAA'
-window.base64codec.decode('AAAA'); // -> '\0\0\0'
+```html
+<script src="base64codec.js"></script>
+<script>
+	window.base64codec.encode('\0\0\0'); // -> 'AAAA'
+	window.base64codec.decode('AAAA'); // -> '\0\0\0'
+</script>
 ```
