@@ -54,16 +54,46 @@ void function(global, callback) {
 				}
 				return buffer.toString('base64');
 			},
-			decode: function decode(base64String) {
-				var buffer = new Buffer(base64String + '', 'base64');
+			decode: function decode(base64String, options) {
+				base64String += '';
+
+				if (options == null)
+					options = {};
+
+				if (options.stripLinefeed === false &&
+					/[\n\r]/.test(base64String)) {
+					throw new Error('Invalid character.');
+				}
+
+				var buffer = new Buffer(base64String, 'base64');
 				return buffer.toString('binary');
 			},
-			decodeUtf8: function decodeUtf8(base64String) {
-				var buffer = new Buffer(base64String + '', 'base64');
+			decodeUtf8: function decodeUtf8(base64String, options) {
+				base64String += '';
+
+				if (options == null)
+					options = {};
+
+				if (options.stripLinefeed === false &&
+					/[\n\r]/.test(base64String)) {
+					throw new Error('Invalid character.');
+				}
+
+				var buffer = new Buffer(base64String, 'base64');
 				return buffer.toString('utf8');
 			},
-			decodeBuffer: function decodeBuffer(base64String) {
-				var buffer = new Buffer(base64String + '', 'base64');
+			decodeBuffer: function decodeBuffer(base64String, options) {
+				base64String += '';
+
+				if (options == null)
+					options = {};
+
+				if (options.stripLinefeed === false &&
+					/[\n\r]/.test(base64String)) {
+					throw new Error('Invalid character.');
+				}
+
+				var buffer = new Buffer(base64String, 'base64');
 				var array = new Uint8Array(buffer.length);
 				var i = array.length;
 				while (i--)
@@ -164,17 +194,34 @@ void function(global, callback) {
 		return btoa(binaryString);
 	};
 
-	var decode = function decode(base64String) {
-		return atob(base64String + '');
+	var decode = function decode(base64String, options) {
+		base64String += '';
+
+		if (options == null)
+			options = {};
+
+		if (options.stripLinefeed !== false)
+			base64String = base64String.replace(/[\n\r]/g, '');
+
+		var binaryString = atob(base64String);
+		return binaryString;
 	};
 
-	var decodeUtf8 = function decodeUtf8(base64String) {
-		var binaryString = atob(base64String + '');
+	var decodeUtf8 = function decodeUtf8(base64String, options) {
+		base64String += '';
+
+		if (options == null)
+			options = {};
+
+		if (options.stripLinefeed !== false)
+			base64String = base64String.replace(/[\n\r]/g, '');
+
+		var binaryString = atob(base64String);
 		return decodeURIComponent(escape(binaryString));
 	};
 
-	if (typeof ArrayBuffer === 'function' &&
-		typeof Uint8Array === 'function') {
+	if (typeof ArrayBuffer !== 'undefined' &&
+		typeof Uint8Array !== 'undefined') {
 		// For modern web browsers.
 		return {
 			encode: encode,
@@ -184,14 +231,22 @@ void function(global, callback) {
 					throw new Error(
 						'First argument needs to be a ArrayBuffer.');
 				}
-				var array = new Uint8Array(buffer);
+				var array = Array.prototype.slice.call(new Uint8Array(buffer));
 				var binaryString = String.fromCharCode.apply(String, array);
 				return btoa(binaryString);
 			},
 			decode: decode,
 			decodeUtf8: decodeUtf8,
-			decodeBuffer: function decodeBuffer(base64String) {
-				var binaryString = atob(base64String + '');
+			decodeBuffer: function decodeBuffer(base64String, options) {
+				base64String += '';
+
+				if (options == null)
+					options = {};
+
+				if (options.stripLinefeed !== false)
+					base64String = base64String.replace(/[\n\r]/g, '');
+
+				var binaryString = atob(base64String);
 				var i, length = binaryString.length;
 				var result = new Uint8Array(length);
 				for (i = 0; i < length; i++)
