@@ -13,8 +13,8 @@ var base64codec;
 if (base64codec == null)
 	base64codec = require('base64codec');
 
-var hasTypedArray = typeof ArrayBuffer === 'function' &&
-		typeof Uint8Array === 'function';
+var hasTypedArray = typeof ArrayBuffer !== 'undefined' &&
+	typeof Uint8Array !== 'undefined';
 
 describe('base64codec', function() {
 	describe('encode', function() {
@@ -103,6 +103,62 @@ describe('base64codec', function() {
 			assert.deepEqual(array, new Uint8Array([
 				0xE3, 0x81, 0x82, 0xE3, 0x81, 0x84, 0xE3, 0x81,
 				0x86, 0xE3, 0x81, 0x88, 0xE3, 0x81, 0x8A]));
+		});
+	});
+
+	describe('decode (strip line-feed)', function() {
+		it('AA\\nAA', function() {
+			assert.strictEqual(base64codec.decode('AA\nAA'), '\0\0\0');
+		});
+	});
+
+	describe('decodeUtf8 (strip line-feed)', function() {
+		it('AA\\nAA', function() {
+			assert.strictEqual(base64codec.decodeUtf8('AA\nAA'), '\0\0\0');
+		});
+	});
+
+	describe('decodeBuffer (strip line-feed)', function() {
+		if (!hasTypedArray)
+			return;
+
+		it('AA\\nAA', function() {
+			var buffer = base64codec.decodeBuffer('AA\nAA');
+			var array = new Uint8Array(buffer);
+			assert.deepEqual(array, new Uint8Array([0, 0, 0]));
+		});
+	});
+
+	describe('decode (strip line-feed) throws Error', function() {
+		it('AA\\nAA', function() {
+			var base64String = 'AA\nAA';
+			var options = {stripLinefeed: false};
+			assert.throws(function() {
+				base64codec.decode(base64String, options);
+			});
+		});
+	});
+
+	describe('decodeUtf8 (strip line-feed) throws Error', function() {
+		it('AA\\nAA', function() {
+			var base64String = 'AA\nAA';
+			var options = {stripLinefeed: false};
+			assert.throws(function() {
+				base64codec.decodeUtf8(base64String, options);
+			});
+		});
+	});
+
+	describe('decodeBuffer (strip line-feed) throws Error', function() {
+		if (!hasTypedArray)
+			return;
+
+		it('AA\\nAA', function() {
+			var base64String = 'AA\nAA';
+			var options = {stripLinefeed: false};
+			assert.throws(function() {
+				base64codec.decodeBuffer(base64String, options);
+			});
 		});
 	});
 });
