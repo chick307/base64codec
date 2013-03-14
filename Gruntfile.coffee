@@ -8,7 +8,7 @@ module.exports = (grunt) ->
 
 		mocha:
 			all:
-				src: ['test/index.html']
+				src: ['test/index.html', 'test/issue-3.html']
 				options:
 					run: true
 
