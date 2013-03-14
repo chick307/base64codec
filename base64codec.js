@@ -156,7 +156,7 @@ void function(global, callback) {
 				'5': 57, '6': 58, '7': 59, '8': 60, '9': 61, '+': 62, '/': 63
 			};
 			return function atob(base64String) {
-				base64String = base64String.replace(/[\n\r]+|=+$/g, '');
+				base64String = base64String.replace(/=+$/g, '');
 				if (/[^A-Z0-9\+\/]/i.test(base64String) ||
 					base64String.length % 4 === 1) {
 					throw new Error('Invalid character error.');
@@ -176,7 +176,7 @@ void function(global, callback) {
 						ATOB_TABLE[base64String.charAt(i++)] << 12;
 					result += String.fromCharCode(block >>> 16 & 0xFF);
 					if (i < l) {
-						block |= base64String.charAt(i) << 6;
+						block |= ATOB_TABLE[base64String.charAt(i)] << 6;
 						result += String.fromCharCode(block >>> 8 & 0xFF);
 					}
 				}
