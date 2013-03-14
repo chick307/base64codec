@@ -161,4 +161,14 @@ describe('base64codec', function() {
 			});
 		});
 	});
+
+	describe('issue#3', function() {
+		var base64String = 'cyJ9XX0=';
+		var expected = 's"}]}';
+
+		it('decode(' + JSON.stringify(base64String) + ')', function() {
+			var actual = base64codec.decode(base64String);
+			assert.strictEqual(actual, expected);
+		});
+	});
 });
