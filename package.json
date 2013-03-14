@@ -1,31 +1,32 @@
 {
-	"author": "chick307 <chick307@gmail.com>",
-	"name": "base64codec",
-	"description": "Base64 encoding/decoding library for JavaScript.",
-	"version": "0.0.2",
-	"main": "base64codec.js",
-	"scripts": {
-		"test": "grunt test"
-	},
-	"homepage": "https://github.com/chick307/base64codec",
-	"bugs": "https://github.com/chick307/base64codec/issues",
-	"repository": {
-		"type": "git",
-		"url": "git://github.com/chick307/base64codec.git"
-	},
-	"dependencies": {},
-	"devDependencies": {
-		"mocha": "1.8.x",
-		"grunt": "0.4.x",
-		"grunt-mocha": "0.2.x",
-		"grunt-simple-mocha": "0.3.x",
-		"grunt-contrib-watch": "0.3.x"
-	},
-	"optionalDependencies": {},
-	"engines": {
-		"node": "*"
-	},
-	"jam": {
-		"dependencies": {}
-	}
+  "author": "chick307 <chick307@gmail.com>",
+  "name": "base64codec",
+  "description": "Base64 encoding/decoding library for JavaScript.",
+  "version": "0.0.3",
+  "license": "MIT",
+  "keywords": ["base64"],
+  "main": "base64codec.js",
+  "readmeFilename": "README.md",
+  "homepage": "https://github.com/chick307/base64codec",
+  "bugs": "https://github.com/chick307/base64codec/issues",
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/chick307/base64codec.git"
+  },
+  "scripts": {
+    "test": "grunt test"
+  },
+  "directories": {
+    "test": "test"
+  },
+  "devDependencies": {
+    "mocha": "1.8.x",
+    "grunt": "0.4.x",
+    "grunt-mocha": "0.2.x",
+    "grunt-simple-mocha": "0.3.x",
+    "grunt-contrib-watch": "0.3.x"
+  },
+  "jam": {
+    "dependencies": {}
+  }
 }
