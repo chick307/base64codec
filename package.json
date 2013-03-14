@@ -2,7 +2,7 @@
   "author": "chick307 <chick307@gmail.com>",
   "name": "base64codec",
   "description": "Base64 encoding/decoding library for JavaScript.",
-  "version": "0.0.2",
+  "version": "0.0.3",
   "license": "MIT",
   "keywords": ["base64"],
   "main": "base64codec.js",
