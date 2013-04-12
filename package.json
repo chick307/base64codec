@@ -23,7 +23,7 @@
     "mocha": "1.8.x",
     "grunt": "0.4.x",
     "grunt-mocha": "0.2.x",
-    "grunt-simple-mocha": "0.3.x",
+    "grunt-mocha-test": "~0.2.2",
     "grunt-contrib-watch": "0.3.x"
   },
   "jam": {
