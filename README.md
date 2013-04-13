@@ -1,4 +1,4 @@
-# base64codec.js
+# base64codec.js ![Build Status](https://api.travis-ci.org/chick307/base64codec.png)
 
 Base64 encoding/decoding library for JavaScript.
 
