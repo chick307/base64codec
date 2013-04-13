@@ -11,7 +11,7 @@ if (assert == null)
 
 var base64codec;
 if (base64codec == null)
-	base64codec = require('base64codec');
+	base64codec = require('..');
 
 var hasTypedArray = typeof ArrayBuffer !== 'undefined' &&
 	typeof Uint8Array !== 'undefined';
