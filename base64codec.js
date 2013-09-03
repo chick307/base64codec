@@ -112,7 +112,7 @@ void function(global, callback) {
 		} else {
 			// For the other web browsers.
 			var BTOA_TABLE = ('ABCDEFGHIJKLMNOPQRSTUVWXYZ' +
-				'abcdefghijklmnopqrstuvwxyz0123456789+/').slice('');
+				'abcdefghijklmnopqrstuvwxyz0123456789+/').split('');
 			return function btoa(binaryString) {
 				var i = 0, l = binaryString.length, length = l - l % 3;
 				var block, result = '';
