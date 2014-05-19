@@ -14,12 +14,15 @@
     "url": "git://github.com/chick307/base64codec.git"
   },
   "scripts": {
-    "test": "grunt test"
+    "test": "MOCHA_REPORTER=spec gulp test"
   },
   "directories": {
     "test": "test"
   },
   "devDependencies": {
+    "gulp": "^3.6.2",
+    "gulp-mocha": "^0.4.1",
+    "gulp-mocha-phantomjs": "^0.2.1",
     "mocha": "1.8.x",
     "grunt": "0.4.x",
     "grunt-mocha": "0.2.x",
