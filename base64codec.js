@@ -112,7 +112,7 @@ void function(global, callback) {
 		} else {
 			// For the other web browsers.
 			var BTOA_TABLE = ('ABCDEFGHIJKLMNOPQRSTUVWXYZ' +
-				'abcdefghijklmnopqrstuvwxyz0123456789+/').slice('');
+				'abcdefghijklmnopqrstuvwxyz0123456789+/').split('');
 			return function btoa(binaryString) {
 				var i = 0, l = binaryString.length, length = l - l % 3;
 				var block, result = '';
@@ -231,8 +231,17 @@ void function(global, callback) {
 					throw new Error(
 						'First argument needs to be a ArrayBuffer.');
 				}
-				var array = Array.prototype.slice.call(new Uint8Array(buffer));
-				var binaryString = String.fromCharCode.apply(String, array);
+				var array, binaryString = '';
+				
+				try {
+					array = Array.prototype.slice.call(new Uint8Array(buffer));
+					binaryString = String.fromCharCode.apply(String, array);
+				} catch (rangeError) {
+					array = new Uint8Array(buffer);
+					for (var i = 0; i < array.length; ++i)
+						binaryString += String.fromCharCode(array[i]);
+				}
+				
 				return btoa(binaryString);
 			},
 			decode: decode,
