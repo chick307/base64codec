@@ -20,10 +20,10 @@
     "test": "test"
   },
   "devDependencies": {
-    "gulp": "~3.6.2",
-    "gulp-mocha": "~0.4.1",
-    "gulp-mocha-phantomjs": "~0.2.1",
-    "mocha": "~1.19.0"
+    "gulp": "^3.6.2",
+    "gulp-mocha": "^0.4.1",
+    "gulp-mocha-phantomjs": "^0.2.1",
+    "mocha": "^1.19.0"
   },
   "jam": {
     "dependencies": {}
