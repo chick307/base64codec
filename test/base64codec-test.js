@@ -11,7 +11,7 @@ if (assert == null)
 
 var base64codec;
 if (base64codec == null)
-	base64codec = require('base64codec');
+	base64codec = require('..');
 
 var hasTypedArray = typeof ArrayBuffer !== 'undefined' &&
 	typeof Uint8Array !== 'undefined';
@@ -57,6 +57,17 @@ describe('base64codec', function() {
 		it('あいうえお', function() {
 			assert.strictEqual(
 				base64codec.encodeBuffer(aiueo), '44GC44GE44GG44GI44GK');
+		});
+
+		context('when passed the large buffer', function() {
+			it('does not throw `RangeError`', function() {
+				assert.doesNotThrow(function() {
+					var largeBuffer = new ArrayBuffer(1000000);
+					assert.doesNotThrow(function() {
+						base64codec.encodeBuffer(largeBuffer);
+					});
+				});
+			});
 		});
 	});
 
