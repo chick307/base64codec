@@ -1,0 +1,10 @@
+{
+    "name": "base64codec",
+    "version": "0.0.4",
+    "main": "base64codec.js",
+    "ignore": [
+        ".*",
+        "node_modules"
+    ],
+    "dependencies": {}
+}
